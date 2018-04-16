@@ -1,0 +1,19 @@
+<mat-toolbar color="primary">
+    <button (click)="toggleSidenav.emit()" class="sidenav-toggle" mat-button>
+        <mat-icon>
+            menu
+        </mat-icon>
+    </button>
+    <span>
+        Teleoperation dashboard
+    </span>
+    <span class="example-spacer">
+    </span>
+    <button [matMenuTriggerFor]="menu" mat-button>
+        <mat-icon>
+            more_vert
+        </mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+    </mat-menu>
+</mat-toolbar>

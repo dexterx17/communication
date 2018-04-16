@@ -1,0 +1,43 @@
+<mat-sidenav-container class="app-sidenav-container">
+	<mat-sidenav class="app-sidenav mat-elevation-z10" #sidenav 
+		[mode]="isScreenSmall() ? 'over' : 'side'" 
+        [opened]="!isScreenSmall()">
+		<mat-toolbar color="primary">
+			<span>Clients</span>
+		</mat-toolbar>
+		<mat-list>
+			<h3 matSubheader>Clientes</h3>
+			<mat-nav-list>
+				<mat-list-item>
+					<a href="#" matLine>
+						<mat-icon svgIcon=""></mat-icon> Drone
+					</a>
+				</mat-list-item>
+			</mat-nav-list>
+			<h3 matSubheader>Controladores</h3>
+			<mat-nav-list>
+				<mat-list-item>
+					<a href="#" matLine>
+						<mat-icon svgIcon=""></mat-icon> Drone
+					</a>
+				</mat-list-item>
+			</mat-nav-list>
+			<h3 matSubheader>Visualizadores</h3>
+			<mat-nav-list>
+				<mat-list-item>
+					<a href="#" matLine>
+						<mat-icon svgIcon=""></mat-icon> Drone
+					</a>
+				</mat-list-item>
+			</mat-nav-list>
+		</mat-list>
+	</mat-sidenav>
+	<mat-sidenav-content class="app-sidenav-content">
+		<app-toolbar
+			(toggleSidenav)="sidenav.toggle()"
+		></app-toolbar>
+		<div class="wrapper">
+			<router-outlet></router-outlet>
+		</div>
+	</mat-sidenav-content>
+</mat-sidenav-container>
