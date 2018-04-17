@@ -1,19 +1,132 @@
 <mat-card>
 	<mat-card-title>
-		Title
+		WebSocket channel
 	</mat-card-title>
+	
 	<mat-card-subtitle>
-		Subtitle
+		Connected to: <span><a href="#">{{url_websocket}}</a></span>
+		<button *ngIf="!isConnected" mat-raised-button color="primary">Connect</button>
 	</mat-card-subtitle>
+
 	<mat-card-content>
-		Content
+		<div fxLayout="row wrap"  fxFlex="100%">
+			<div fxFlex="33%">
+				<mat-card>
+					<mat-card-title>
+						Platforms
+					</mat-card-title>
+					<mat-card-content>
+						<mat-card *ngFor="let client of platforms">
+						    <mat-card-title>
+						      	<mat-icon svgIcon="drone"></mat-icon>
+							      <span>
+							      {{ client.alias }}
+							      </span>
+						    </mat-card-title>
+						    <mat-card-subtitle>
+						      {{ client.ip }}
+						    </mat-card-subtitle>
+						    <mat-card-content>
+						  <div fxLayout="row" fxLayoutAlign="space-between stretch" class="client-data">
+						  	<div>
+						  		<h3>Sending</h3>
+							  	<mat-list dense>
+							  		<mat-list-item> Lat: <span>{{ client.lat }}</span></mat-list-item>
+							  		<mat-list-item> Lng: <span>{{ client.lng }}</span></mat-list-item>
+							  		<mat-list-item> Alt: <span>{{ client.alt }}</span></mat-list-item>
+							  		<mat-list-item> x: <span>{{ client.x }}</span></mat-list-item>
+							  		<mat-list-item> y: <span>{{ client.y }}</span></mat-list-item>
+							  		<mat-list-item> z: <span>{{ client.z }}</span></mat-list-item>
+							  	</mat-list>
+						  	</div>
+						  	<div>
+						  		<h3>Receiving</h3>
+						  		<mat-list dense>
+						  			<mat-list-item>yaw: <span></span> </mat-list-item>
+						  			<mat-list-item>pitch: <span></span> </mat-list-item>
+						  			<mat-list-item>roll: <span></span> </mat-list-item>
+						  			<mat-list-item>thrutle: <span></span> </mat-list-item>
+						  		</mat-list>
+						  	</div>
+						  </div>
+						</mat-card-content>
+						  <mat-card-footer>
+						  	Paired with: <span>none</span>
+						  </mat-card-footer>
+						</mat-card>
+					</mat-card-content>
+					<mat-card-actions>
+						<button *ngIf="!isAuth" mat-button color="primary" (click)="initAs('platform')">Init as platform</button>
+					</mat-card-actions>
+					<mat-card-footer>
+						Console:
+					</mat-card-footer>
+				</mat-card>
+			</div>
+			<div fxFlex="33%">
+				<mat-card>
+					<mat-card-title>
+						Controllers
+					</mat-card-title>
+					<mat-card-content>
+						<mat-card *ngFor="let client of controllers">
+						    <mat-card-title>
+						      <span>
+						      	<mat-icon svgIcon="control"></mat-icon>
+						      </span>
+						      {{ client.alias }}
+						    </mat-card-title>
+						    <mat-card-subtitle>
+						      {{ client.ip }}
+						    </mat-card-subtitle>
+						    <mat-card-content>
+							  	<ul>
+							  		<li> Lat: <span>0</span></li>
+							  		<li> Lng: <span>0</span></li>
+							  		<li> Alt: <span>0</span></li>
+							  		<li> x: <span>0</span></li>
+							  		<li> y: <span>0</span></li>
+							  		<li> z: <span>0</span></li>
+							  	</ul>
+						    </mat-card-content>
+						    <mat-card-footer>
+						    	Paired with: 
+						    </mat-card-footer>
+						</mat-card>
+					</mat-card-content>
+					<mat-card-actions>
+						<button *ngIf="!isAuth" mat-button color="primary" (click)="initAs('controller')">Init as controller</button>
+					</mat-card-actions>
+				</mat-card>
+			</div>
+			<div fxFlex="33%">
+				<mat-card>
+					<mat-card-title>
+						Viewers
+					</mat-card-title>
+					<mat-card-content>
+						<mat-card *ngFor="let client of viewers">
+						    <mat-card-title>
+						      <span>
+						      	<mat-icon svgIcon="eye"></mat-icon>
+						      </span>
+						      {{ client.alias }}
+						    </mat-card-title>
+						    <mat-card-subtitle>
+						      {{ client.ip }}
+						    </mat-card-subtitle>
+						</mat-card>
+					</mat-card-content>
+					<mat-card-actions>
+						<button *ngIf="!isAuth" mat-button color="primary" (click)="initAs('viewer')">Init as viewer</button>
+					</mat-card-actions>
+				</mat-card>
+			</div>
+
+		</div>
 	</mat-card-content>
 
-	<mat-card-actions>
-		Actions
-	</mat-card-actions>
-
 	<mat-card-footer>
-		Footer
+		Total clients:  <span>{{clients.length}}</span>
 	</mat-card-footer>
 </mat-card>

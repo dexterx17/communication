@@ -6,7 +6,15 @@
 			<span>Clients</span>
 		</mat-toolbar>
 		<mat-list>
-			<h3 matSubheader>Clientes</h3>
+			<h3 matSubheader>Platforms</h3>
+			<mat-nav-list>
+				<mat-list-item *ngFor="let client of platforms">
+					<a href="#" matLine>
+						<mat-icon svgIcon="drone"></mat-icon> {{ client.alias }}
+					</a>
+				</mat-list-item>
+			</mat-nav-list>
+			<h3 matSubheader>Controllers</h3>
 			<mat-nav-list>
 				<mat-list-item>
 					<a href="#" matLine>
@@ -14,15 +22,7 @@
 					</a>
 				</mat-list-item>
 			</mat-nav-list>
-			<h3 matSubheader>Controladores</h3>
-			<mat-nav-list>
-				<mat-list-item>
-					<a href="#" matLine>
-						<mat-icon svgIcon=""></mat-icon> Drone
-					</a>
-				</mat-list-item>
-			</mat-nav-list>
-			<h3 matSubheader>Visualizadores</h3>
+			<h3 matSubheader>Viewers</h3>
 			<mat-nav-list>
 				<mat-list-item>
 					<a href="#" matLine>
