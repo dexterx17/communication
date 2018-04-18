@@ -32,20 +32,32 @@ export class ConnectionService {
 	}
 
 	addClient(client: IClient, tipo:string){
-
 		this.exist(client,this.clients) ? this.clients.push(client) : '';
 		switch (tipo) {
 			case "platform":
 				this.exist(client,this.platforms) ? this.platforms.push(client) : '';
+				//si la plataforma ya tiene asignado un controlador
+				console.log('master de la plataforma');
+				console.log(client.master);
+				if(client.master){
+					//enlazo al controlador(master) con la plataforma
+					client.master.slave = client;
+				}
 			break;
 			case "controller":
 				this.exist(client,this.controllers) ? this.controllers.push(client) : '';
+				//si el controlador ya tiene asignado una plataforma
+				console.log('slave del controlador');
+				console.log(client.slave);
+				if(client.slave){
+					//enlazo la plataforma(slave) con el controlador
+					client.slave.master = client;
+				}
 			break;
 			case "viewer":
 				console.log('viewers');
 				console.log(client);
 				console.log(this.viewers);
-				
 				this.exist(client,this.viewers) ? this.viewers.push(client) : '';
 				console.log('viewers');
 				console.log(this.viewers);
@@ -59,6 +71,14 @@ export class ConnectionService {
 			return true;
 		else 
 			return false;
+	}
+
+	getClient(alias:string): IClient{
+		var x = this.clients.find(x => x.alias === alias);
+		if(typeof x === "undefined")
+			return null;
+		else 
+			return x;
 	}
 
 	getClients(tipo:string): IClient[]{

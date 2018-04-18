@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
+import { ActivatedRoute } from '@angular/router';
+
 @Component({
   selector: 'app-client-preview',
   templateUrl: './client-preview.component.html',
@@ -7,9 +9,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ClientPreviewComponent implements OnInit {
 
-  constructor() { }
+	alias: string;
+
+  constructor(private route : ActivatedRoute) { }
 
   ngOnInit() {
+  	this.route.params.subscribe(params => {
+  		let id = params['id'];
+  		this.alias = id;
+  	});
+
   }
 
 }

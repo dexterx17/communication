@@ -4,4 +4,7 @@ export interface IMessage {
 	tipo: string;
 	ip:string;
 	id:string;
+	lat: number;
+	lng: number;
+	alt: number;
 }

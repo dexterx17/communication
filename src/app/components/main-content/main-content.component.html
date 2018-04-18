@@ -27,31 +27,41 @@
 						      {{ client.ip }}
 						    </mat-card-subtitle>
 						    <mat-card-content>
-						  <div fxLayout="row" fxLayoutAlign="space-between stretch" class="client-data">
-						  	<div>
-						  		<h3>Sending</h3>
-							  	<mat-list dense>
-							  		<mat-list-item> Lat: <span>{{ client.lat }}</span></mat-list-item>
-							  		<mat-list-item> Lng: <span>{{ client.lng }}</span></mat-list-item>
-							  		<mat-list-item> Alt: <span>{{ client.alt }}</span></mat-list-item>
-							  		<mat-list-item> x: <span>{{ client.x }}</span></mat-list-item>
-							  		<mat-list-item> y: <span>{{ client.y }}</span></mat-list-item>
-							  		<mat-list-item> z: <span>{{ client.z }}</span></mat-list-item>
-							  	</mat-list>
-						  	</div>
-						  	<div>
-						  		<h3>Receiving</h3>
-						  		<mat-list dense>
-						  			<mat-list-item>yaw: <span></span> </mat-list-item>
-						  			<mat-list-item>pitch: <span></span> </mat-list-item>
-						  			<mat-list-item>roll: <span></span> </mat-list-item>
-						  			<mat-list-item>thrutle: <span></span> </mat-list-item>
-						  		</mat-list>
-						  	</div>
-						  </div>
-						</mat-card-content>
+							  <div fxLayout="row" fxLayoutAlign="space-between stretch" class="client-data">
+							  	<div>
+							  		<h3>Sending</h3>
+								  	<mat-list dense>
+								  		<mat-list-item> Lat: <span>{{ client.lat }}</span></mat-list-item>
+								  		<mat-list-item> Lng: <span>{{ client.lng }}</span></mat-list-item>
+								  		<mat-list-item> Alt: <span>{{ client.alt }}</span></mat-list-item>
+								  		<mat-list-item> x: <span>{{ client.x }}</span></mat-list-item>
+								  		<mat-list-item> y: <span>{{ client.y }}</span></mat-list-item>
+								  		<mat-list-item> z: <span>{{ client.z }}</span></mat-list-item>
+								  	</mat-list>
+							  	</div>
+							  	<div *ngIf="client.master">
+							  		<h3>Receiving</h3>
+							  		<mat-list dense>
+							  			<mat-list-item>yaw: <span>{{ client.master.yaw }}</span> </mat-list-item>
+							  			<mat-list-item>pitch: <span>{{ client.master.pitch }} </span> </mat-list-item>
+							  			<mat-list-item>roll: <span>{{ client.master.roll }}</span> </mat-list-item>
+							  			<mat-list-item>thrutle: <span>{{ client.master.thruttle }}</span> </mat-list-item>
+							  		</mat-list>
+							  	</div>
+							  </div>
+							  <div>
+							  	<agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom">
+								  <agm-marker [latitude]="client.lat" [longitude]="client.lng"></agm-marker>
+								</agm-map>
+							  </div>
+							</mat-card-content>
+							<mat-card-actions>
+								<button mat-button color="primary" [routerLink]="['/client', client.alias ]">
+									<mat-icon svgIcon="eye"></mat-icon> See details
+								</button>
+							</mat-card-actions>
 						  <mat-card-footer>
-						  	Paired with: <span>none</span>
+						  	Paired with: <span *ngIf="client.master"><mat-icon svgIcon="control"></mat-icon>{{ client.master.alias }}</span>
 						  </mat-card-footer>
 						</mat-card>
 					</mat-card-content>
@@ -80,23 +90,45 @@
 						      {{ client.ip }}
 						    </mat-card-subtitle>
 						    <mat-card-content>
-							  	<ul>
-							  		<li> Lat: <span>0</span></li>
-							  		<li> Lng: <span>0</span></li>
-							  		<li> Alt: <span>0</span></li>
-							  		<li> x: <span>0</span></li>
-							  		<li> y: <span>0</span></li>
-							  		<li> z: <span>0</span></li>
-							  	</ul>
+						    	<div fxLayout="row" fxLayoutAlign="space-between stretch" class="client-data">
+								  	<div >
+								  		<h3>Sending</h3>
+								  		<mat-list dense>
+								  			<mat-list-item>yaw: <span>{{ client.yaw }}</span> </mat-list-item>
+								  			<mat-list-item>pitch: <span>{{ client.pitch }} </span> </mat-list-item>
+								  			<mat-list-item>roll: <span>{{ client.roll }}</span> </mat-list-item>
+								  			<mat-list-item>thrutle: <span>{{ client.thruttle }}</span> </mat-list-item>
+								  		</mat-list>
+								  	</div>
+								  	<div *ngIf="client.slave">
+								  		<h3>Receiving</h3>
+									  	<mat-list dense>
+									  		<mat-list-item> Lat: <span>{{ client.slave.lat }}</span></mat-list-item>
+									  		<mat-list-item> Lng: <span>{{ client.slave.lng }}</span></mat-list-item>
+									  		<mat-list-item> Alt: <span>{{ client.slave.alt }}</span></mat-list-item>
+									  		<mat-list-item> x: <span>{{ client.slave.x }}</span></mat-list-item>
+									  		<mat-list-item> y: <span>{{ client.slave.y }}</span></mat-list-item>
+									  		<mat-list-item> z: <span>{{ client.slave.z }}</span></mat-list-item>
+									  	</mat-list>
+									</div>
+								</div>
 						    </mat-card-content>
+						    <mat-card-actions>
+								<button mat-button color="primary" [routerLink]="['/client', client.alias ]">
+									<mat-icon svgIcon="eye"></mat-icon> See details
+								</button>
+							</mat-card-actions>
 						    <mat-card-footer>
-						    	Paired with: 
+						    	Paired with: <span *ngIf="client.slave"><mat-icon svgIcon="drone"></mat-icon>{{ client.slave.alias }}</span>
 						    </mat-card-footer>
 						</mat-card>
 					</mat-card-content>
 					<mat-card-actions>
 						<button *ngIf="!isAuth" mat-button color="primary" (click)="initAs('controller')">Init as controller</button>
 					</mat-card-actions>
+					<mat-card-footer>
+						Console:
+					</mat-card-footer>
 				</mat-card>
 			</div>
 			<div fxFlex="33%">
@@ -120,6 +152,9 @@
 					<mat-card-actions>
 						<button *ngIf="!isAuth" mat-button color="primary" (click)="initAs('viewer')">Init as viewer</button>
 					</mat-card-actions>
+					<mat-card-footer>
+						Console:
+					</mat-card-footer>
 				</mat-card>
 			</div>
 

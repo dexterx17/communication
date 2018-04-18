@@ -21,6 +21,10 @@ export class MainContentComponent implements OnInit {
     controllers: IClient[] = [];
     viewers: IClient[] = [];
 
+    lat: number = -0.9357917;
+    lng: number = -78.6124162
+    zoom:number = 17;
+
     constructor(private connectionService: ConnectionService) {
 
         this.url_websocket = connectionService.getUrl();
@@ -31,7 +35,7 @@ export class MainContentComponent implements OnInit {
             switch (msg.ev) {
                 case Constantes.MSG_IDENTIFICACION:
                     console.log('ID:: ');
-                    this.connectionService.addClient({ alias: msg.id, tipo: msg.tipo, ip: msg.ip }, msg.tipo);
+                    this.connectionService.addClient({ alias: msg.id, tipo: msg.tipo, ip: msg.ip, master: null, slave: null }, msg.tipo);
                     break;
                 case Constantes.MSG_DESCONEXION:
                     console.log('desc:: ');
@@ -45,8 +49,9 @@ export class MainContentComponent implements OnInit {
                     console.log('LIST:: ');
                     for (var i = 0; i < msg.clients.length; ++i) {
                         var c = msg.clients[i];
-                        this.connectionService.addClient({ alias: c.alias, tipo: c.tipo, ip: c.ip }, c.tipo);
-                        
+                        var master = this.connectionService.getClient(c.master);
+                        var slave = this.connectionService.getClient(c.slave);
+                        this.connectionService.addClient({ alias: c.alias, tipo: c.tipo, ip: c.ip, master: master, slave: slave }, c.tipo);
                     }
                     break;
                 case Constantes.MSG_INSTRUCCION:
@@ -79,7 +84,7 @@ export class MainContentComponent implements OnInit {
     initAs(tipo: string) {
         let message = {
             ev: 'id',
-            cliente: 'drone',
+            client: 'drone',
             tipo: tipo
         }
         this.connectionService.messages.next(message);

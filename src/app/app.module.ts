@@ -14,9 +14,11 @@ import { SidenavComponent } from './components/sidenav/sidenav.component';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { ClientPreviewComponent } from './components/client-preview/client-preview.component';
 
+import { AgmCoreModule } from '@agm/core';
 
 const routes: Routes = [
 	{ path: '', component: MainContentComponent },
+  { path: 'client/:id', component: ClientPreviewComponent},
 	{ path: '**', redirectTo: '' }
 ];
 
@@ -36,7 +38,10 @@ const routes: Routes = [
     HttpClientModule,
     MaterialModule,
     FlexLayoutModule,
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes),
+     AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyDJ920_mAj7Lcw2Mc6JOqrxbJEKHQS0BRE'
+    })
   ],
   providers: [],
   bootstrap: [AppComponent]
